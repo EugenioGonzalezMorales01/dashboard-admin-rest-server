@@ -14,7 +14,6 @@ exports.signup = (req, res) => {
 		const { firstName, lastName, email, password } = req.body;
 		//Encarptacion de la contraseña por metodo asincrono
 		const hash_password = await bcrypt.hash(password, 10);
-		console.log("No es el bcrypt");
 		//Los entroducimos dentro de una variable
 		const _user = new User({
 			firstName,
@@ -24,7 +23,6 @@ exports.signup = (req, res) => {
 			userName: Math.random().toString(),
 			role: "admin",
 		});
-		console.log(_user);
 		//Guardamos el usuario en la base de datos
 		_user.save((error, data) => {
 			if (error) {
