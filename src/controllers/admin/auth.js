@@ -14,31 +14,30 @@ exports.signup = (req, res) => {
 		const { firstName, lastName, email, password } = req.body;
 		//Encarptacion de la contraseña por metodo asincrono
 		console.log("Si es el bcrypt");
-		const hash_password = await bcrypt.hash(password, 10, (req, res) => {
-			console.log("No es el bcrypt");
-			//Los entroducimos dentro de una variable
-			const _user = new User({
-				firstName,
-				lastName,
-				email,
-				hash_password,
-				userName: Math.random().toString(),
-				role: "admin",
-			});
-			console.log(_user);
-			//Guardamos el usuario en la base de datos
-			_user.save((error, data) => {
-				if (error) {
-					return res.status(400).json({
-						message: `Something went wrong ${error}`,
-					});
-				}
-				if (data) {
-					return res.status(201).json({
-						message: "Admin created succcessfully",
-					});
-				}
-			});
+		const hash_password = await bcrypt.hashSync(password, 10);
+		console.log("No es el bcrypt");
+		//Los entroducimos dentro de una variable
+		const _user = new User({
+			firstName,
+			lastName,
+			email,
+			hash_password,
+			userName: Math.random().toString(),
+			role: "admin",
+		});
+		console.log(_user);
+		//Guardamos el usuario en la base de datos
+		_user.save((error, data) => {
+			if (error) {
+				return res.status(400).json({
+					message: `Something went wrong ${error}`,
+				});
+			}
+			if (data) {
+				return res.status(201).json({
+					message: "Admin created succcessfully",
+				});
+			}
 		});
 	});
 };
