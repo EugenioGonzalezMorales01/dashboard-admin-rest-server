@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const { body } = require("express-validator");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcrypt-nodejs");
+const bcrypt2 = require("bcrypt");
 exports.signup = (req, res) => {
 	User.findOne({ email: req.body.email }).exec(async (error, user) => {
 		//Email ya registrado
@@ -14,7 +15,7 @@ exports.signup = (req, res) => {
 		console.log(req.body);
 		const { firstName, lastName, email, password } = req.body;
 		//Encarptacion de la contraseña por metodo asincrono
-		const hash_password = await bcrypt.hash(password, 10);
+		const hash_password = await bcrypt2.hash(password, 10);
 		//Los entroducimos dentro de una variable
 		const _user = new User({
 			firstName,
