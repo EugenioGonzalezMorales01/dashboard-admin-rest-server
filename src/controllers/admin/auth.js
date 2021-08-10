@@ -13,7 +13,6 @@ exports.signup = (req, res) => {
 		console.log(req.body);
 		const { firstName, lastName, email, password } = req.body;
 		//Encarptacion de la contraseña por metodo asincrono
-		console.log("Si es el bcrypt");
 		const hash_password = await bcrypt.hash(password, 10);
 		console.log("No es el bcrypt");
 		//Los entroducimos dentro de una variable
