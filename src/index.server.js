@@ -44,10 +44,6 @@ app.use(
 	})
 );
 
-//React-heroku
-if (Process.env.NODE_ENV === "production") {
-}
-
 app.use("/api", authRoutes);
 app.use("/api", adminRoutes);
 app.use("/api", categoryRoutes);
