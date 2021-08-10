@@ -14,28 +14,27 @@ exports.signup = (req, res) => {
 		console.log(req.body);
 		const { firstName, lastName, email, password } = req.body;
 		//Encarptacion de la contraseña por metodo asincrono
-		const hash_password = await bcrypt.hash(password, 10, (req, res) => {
-			//Los entroducimos dentro de una variable
-			const _user = new User({
-				firstName,
-				lastName,
-				email,
-				hash_password,
-				userName: Math.random().toString(),
-			});
-			//Guardamos el usuario en la base de datos
-			_user.save((error, data) => {
-				if (error) {
-					return res.status(400).json({
-						message: `Something went wrong ${error}`,
-					});
-				}
-				if (data) {
-					return res.status(201).json({
-						message: "User created succcessfully",
-					});
-				}
-			});
+		const hash_password = await bcrypt.hash(password, 10);
+		//Los entroducimos dentro de una variable
+		const _user = new User({
+			firstName,
+			lastName,
+			email,
+			hash_password,
+			userName: Math.random().toString(),
+		});
+		//Guardamos el usuario en la base de datos
+		_user.save((error, data) => {
+			if (error) {
+				return res.status(400).json({
+					message: `Something went wrong ${error}`,
+				});
+			}
+			if (data) {
+				return res.status(201).json({
+					message: "User created succcessfully",
+				});
+			}
 		});
 	});
 };
