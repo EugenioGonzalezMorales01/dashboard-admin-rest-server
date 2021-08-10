@@ -1,7 +1,7 @@
 const User = require("../../models/user");
 const jwt = require("jsonwebtoken");
 const { body } = require("express-validator");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt-nodejs");
 exports.signup = (req, res) => {
 	User.findOne({ email: req.body.email }).exec(async (error, user) => {
 		//Email ya registrado
